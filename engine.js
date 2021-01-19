@@ -1,5 +1,5 @@
 let app;
-const topDisposition = 19.6
+const topInverseDisposition = 23.5
 const leftDisposition = 0.6
 
 function startApp(happyOnlyMode) {
@@ -38,9 +38,13 @@ class DeckApp {
         for (const [i, q] of this.questions.entries()) {
             const id = `card_${i}`
             const zIndex = this.questions.length - i
-            const top = (i * topDisposition) * -1
+            const top = (i * topInverseDisposition) * -1
             const left = (i * leftDisposition)
-            const card = `<div id="${id}" style="z-index:${zIndex};top:${top}em;left:${left}em">${q}</div>`
+            const card = `
+                <div id="${id}" class="card"
+                    style="z-index:${zIndex};top:${top}em;left:${left}em">
+                    <div class="card-text">${q}</div>
+                </div>`
             this.deck.insertAdjacentHTML('beforeend', card)
         }
     }

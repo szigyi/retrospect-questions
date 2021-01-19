@@ -1,24 +1,57 @@
 
 body {
-    background-color: beige;
+    background-color: azure;
 }
 
 #deck {
     width: 15em;
     margin: auto;
-    top: 5em;
+    top: 2em;
     position: relative;
     text-align: center;
 }
 
-#deck div {
-    display: flex;
-    justify-content: center; /* align horizontal */
-    align-items: center; /* align vertical */
+#deck div.card {
     position: relative;
-    background-color: bisque;
     height: 20em;
+
+    background-color: #d1be9f;
+
     border-style: solid;
-    border-radius: 2em;
-    border-width: 0.11em;
+    border-radius: 1em;
+    border-width: 2em;
+    border-color: #d1be9f;
+
+    box-shadow: 0.1em 0.1em 0.3em rgba(0, 0, 0, 0.4);
+
+    cursor: pointer;
+}
+
+#deck div.card-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #0a0f49;
+
+    position: relative;
+    height: 100%;
+
+    border-style: solid;
+    border-radius: 1em;
+    border-width: 0.4em;
+    border-color: #0a0f49;
+}
+
+#deck div.card-text:before {
+    content: " ";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-style: solid;
+    border-radius: 0.6em;
+    border-width: 0.3em;
+    border-color: bisque;
 }

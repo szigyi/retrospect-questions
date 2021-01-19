@@ -5,8 +5,9 @@ For couples or for loners before bedtime to evaluate the day. Run a retrospectiv
 
 ## Features
 ### todo
-- list of questions
-- card that shows current question
-- click on the card to put away and get another card
-- categorise the question as happy and or sad
-- mode selector [Happy | Happy & Sad]
+-[X] list of questions
+-[X] card that shows current question
+-[X] click on the card to put away and get another card
+-[ ] categorise the question as happy and or sad
+-[ ] mode selector [Happy | Happy & Sad]
+-[ ] add animation when getting a new card

@@ -1,0 +1,24 @@
+
+body {
+    background-color: beige;
+}
+
+#deck {
+    width: 15em;
+    margin: auto;
+    top: 5em;
+    position: relative;
+    text-align: center;
+}
+
+#deck div {
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+    position: relative;
+    background-color: bisque;
+    height: 20em;
+    border-style: solid;
+    border-radius: 2em;
+    border-width: 0.11em;
+}

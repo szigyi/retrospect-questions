@@ -8,6 +8,6 @@ For couples or for loners before bedtime to evaluate the day. Run a retrospectiv
 -[X] list of questions
 -[X] card that shows current question
 -[X] click on the card to put away and get another card
--[ ] categorise the question as happy and or sad
--[ ] mode selector [Happy | Happy & Sad]
+-[X] categorise the question as happy and or sad
+-[X] mode selector [Happy | Happy & Sad]
 -[ ] add animation when getting a new card

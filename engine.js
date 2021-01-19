@@ -1,8 +1,21 @@
 let app;
 
-function startApp() {
+function startApp(happyOnlyMode) {
+    document.getElementById("happyOnly").addEventListener("change", modeToggle)
+
     const deck = document.getElementById("deck")
-    app = new DeckApp(deck, questions())
+    app = new DeckApp(deck, questions(happyOnlyMode))
+    deck.addEventListener("click", nextCardPlease)
+}
+
+function nextCardPlease() {
+    app.nextCardPlease()
+}
+
+function modeToggle(event) {
+    const happyOnlyMode = event.target.checked
+    app.deck.removeEventListener("click", nextCardPlease)
+    startApp(happyOnlyMode)
 }
 
 class DeckApp {
@@ -36,11 +49,26 @@ class DeckApp {
     }
 }
 
-function questions() {
-    return [
+function questions(happyOnlyMode) {
+    function shuffle(a) {
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+    const happy = [
         'What made you happy today?',
-        'What made you angry today?',
-        'What made you sad today?',
         'What did you do today that makes you proud?'
     ]
+    const sad = [
+        'What made you sad today?',
+        'What made you angry today?'
+    ]
+
+    if (happyOnlyMode) {
+        return shuffle(happy)
+    } else {
+        return shuffle(happy.concat(sad))
+    }
 }

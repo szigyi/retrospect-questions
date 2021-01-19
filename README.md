@@ -10,4 +10,4 @@ For couples or for loners before bedtime to evaluate the day. Run a retrospectiv
 - [X] click on the card to put away and get another card
 - [X] categorise the question as happy and or sad
 - [X] mode selector [Happy | Happy & Sad]
-- [ ] add animation when getting a new card
+- [ ] add animation when getting a new card - css transform, translate -> animation: front card moves to the side and gets under the deck

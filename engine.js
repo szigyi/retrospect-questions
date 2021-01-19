@@ -1,4 +1,6 @@
 let app;
+const topDisposition = 19.6
+const leftDisposition = 0.6
 
 function startApp(happyOnlyMode) {
     document.getElementById("happyOnly").addEventListener("change", modeToggle)
@@ -36,8 +38,8 @@ class DeckApp {
         for (const [i, q] of this.questions.entries()) {
             const id = `card_${i}`
             const zIndex = this.questions.length - i
-            const top = (i * 19.6) * -1
-            const left = (i * 0.6)
+            const top = (i * topDisposition) * -1
+            const left = (i * leftDisposition)
             const card = `<div id="${id}" style="z-index:${zIndex};top:${top}em;left:${left}em">${q}</div>`
             this.deck.insertAdjacentHTML('beforeend', card)
         }

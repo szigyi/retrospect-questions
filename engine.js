@@ -24,7 +24,7 @@ class DeckApp {
     constructor(deck, questions) {
         this.deck = deck
         this.questions = questions
-        this.addCards()
+        this.#addCards()
     }
 
     #removeAllCards() {
@@ -33,25 +33,30 @@ class DeckApp {
         }
     }
 
-    addCards() {
+    #createCard(id, zIndex, top, left, question) {
+        return `
+        <div id="${id}" class="card"
+            style="z-index:${zIndex};top:${top}em;left:${left}em">
+            <div class="card-text">${question}</div>
+        </div>
+        `
+    }
+
+    #addCards() {
         this.#removeAllCards()
         for (const [i, q] of this.questions.entries()) {
             const id = `card_${i}`
             const zIndex = this.questions.length - i
             const top = (i * topInverseDisposition) * -1
             const left = (i * leftDisposition)
-            const card = `
-                <div id="${id}" class="card"
-                    style="z-index:${zIndex};top:${top}em;left:${left}em">
-                    <div class="card-text">${q}</div>
-                </div>`
+            const card = this.#createCard(id, zIndex, top, left, q)
             this.deck.insertAdjacentHTML('beforeend', card)
         }
     }
 
     nextCardPlease() {
         this.questions.push(this.questions.shift())
-        this.addCards()
+        this.#addCards()
     }
 }
 

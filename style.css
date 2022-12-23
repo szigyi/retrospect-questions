@@ -14,8 +14,8 @@ body {
     position: absolute;
     margin: 1em 1em;
     padding: 1em 1em;
-    height: 20em;
-    width: 15em;
+    height: 15em;
+    width: 10em;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,7 +23,7 @@ body {
     background-image: url("touch_icon.png");
     background-repeat: no-repeat;
     background-origin: content-box;
-    background-position: right top;
+    background-position: right -2em top -2em;
 
     border-style: solid;
     border-radius: 1em;

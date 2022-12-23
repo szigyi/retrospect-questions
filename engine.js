@@ -1,6 +1,4 @@
 let app;
-const topInverseDisposition = 23.5
-const leftDisposition = 0.6
 
 function startApp(happyOnlyMode) {
     document.getElementById("happyOnly").addEventListener("change", modeToggle)
@@ -11,7 +9,11 @@ function startApp(happyOnlyMode) {
 }
 
 function nextCardPlease() {
-    app.nextCardPlease()
+    const deck = document.getElementById("deck")
+    const cards = [...deck.children]
+    const head = cards.shift()
+    const cardsArray = [...cards, head]
+    deck.replaceChildren(...cardsArray)
 }
 
 function modeToggle(event) {
@@ -33,10 +35,9 @@ class DeckApp {
         }
     }
 
-    #createCard(id, zIndex, top, left, question) {
+    #createCard(id, question) {
         return `
-        <div id="${id}" class="card"
-            style="z-index:${zIndex};top:${top}em;left:${left}em">
+        <div id="${id}" class="card">
             <div class="card-text">${question}</div>
         </div>
         `
@@ -46,17 +47,9 @@ class DeckApp {
         this.#removeAllCards()
         for (const [i, q] of this.questions.entries()) {
             const id = `card_${i}`
-            const zIndex = this.questions.length - i
-            const top = (i * topInverseDisposition) * -1
-            const left = (i * leftDisposition)
-            const card = this.#createCard(id, zIndex, top, left, q)
+            const card = this.#createCard(id, q)
             this.deck.insertAdjacentHTML('beforeend', card)
         }
-    }
-
-    nextCardPlease() {
-        this.questions.push(this.questions.shift())
-        this.#addCards()
     }
 }
 

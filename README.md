@@ -10,7 +10,7 @@ For couples or for loners before bedtime to evaluate the day. Run a retrospectiv
 ### todo
 #### frontlog
 - [ ] review questions and find better grouping if needed => which can reveal new features 
-- [ ] find out what is the easiest way to use the UI - having two stack of cards, seen, unseen; having one stack and front card goes to the back
+- [X] find out what is the easiest way to use the UI - having two stack of cards, seen, unseen; having one stack and front card goes to the back
 #### backlog
 - [ ] every card has its own unique link for sharing purposes
 

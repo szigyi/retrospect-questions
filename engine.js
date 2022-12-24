@@ -1,10 +1,17 @@
 let app;
+let happyMode = true;
+let sadMode = true;
+let partnerMode = true;
+let childhoodMode = true;
 
-function startApp(happyOnlyMode) {
-    document.getElementById("happyOnly").addEventListener("change", modeToggle)
+function startApp() {
+    document.getElementById("happy").addEventListener("change", modeToggle)
+    document.getElementById("sad").addEventListener("change", modeToggle)
+    document.getElementById("partner").addEventListener("change", modeToggle)
+    document.getElementById("childhood").addEventListener("change", modeToggle)
 
     const deck = document.getElementById("deck")
-    app = new DeckApp(deck, questions(happyOnlyMode))
+    app = new DeckApp(deck, questions(happyMode, sadMode, partnerMode, childhoodMode))
     deck.addEventListener("click", nextCardPlease)
 }
 
@@ -17,9 +24,21 @@ function nextCardPlease() {
 }
 
 function modeToggle(event) {
-    const happyOnlyMode = event.target.checked
+    switch (event.target.name) {
+        case "happy":
+            happyMode = event.target.checked
+            break
+        case "sad":
+            sadMode = event.target.checked
+            break
+        case "partner":
+            partnerMode = event.target.checked
+            break
+        case "childhood":
+            childhoodMode = event.target.checked
+    }
     app.deck.removeEventListener("click", nextCardPlease)
-    startApp(happyOnlyMode)
+    startApp()
 }
 
 class DeckApp {
@@ -67,7 +86,7 @@ const Tag = {
     Childhood: Symbol("childhood")
 }
 
-function questions(happyOnlyMode) {
+function questions(happyMode, sadMode, partnerMode, childhoodMode) {
     function shuffle(a) {
         for (let i = a.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -98,8 +117,8 @@ function questions(happyOnlyMode) {
         new Q('Whom did you help today?', [Tag.Happy]),
         new Q('Did you receive a compliment today?', [Tag.Happy]),
         new Q('Did you give any compliments today?', [Tag.Happy]),
-        new Q('What did your partner do today, that made you feel loved?', [Tag.Happy]),
-        new Q('What did you do today, to make your partner feel loved?', [Tag.Happy]),
+        new Q('What did your partner do today, that made you feel loved?', [Tag.Happy, Tag.Partner]),
+        new Q('What did you do today, to make your partner feel loved?', [Tag.Happy, Tag.Partner]),
         new Q('What made you sad today?', [Tag.Sad]),
         new Q('What made you angry today?', [Tag.Sad]),
         new Q('How were you feeling today?', [Tag.Sad]),
@@ -117,13 +136,12 @@ function questions(happyOnlyMode) {
         new Q('Did anybody made you feel uneasy today?', [Tag.Sad]),
         new Q('Is there anything you want to be better at?', [Tag.Sad])
     ]
-
-    if (happyOnlyMode) {
-        return qs.filter(function(el) {
-            return happyOnlyMode && el.tags.includes(Tag.Happy)
-        })
-    } else {
-        return qs
-    }
-
+    const h = qs.filter(function(el) {
+        return (happyMode && el.tags.includes(Tag.Happy)) ||
+          (sadMode && el.tags.includes(Tag.Sad)) ||
+          (partnerMode && el.tags.includes(Tag.Partner)) ||
+          (childhoodMode && el.tags.includes(Tag.Childhood))
+    })
+    console.log(h.length)
+    return h
 }

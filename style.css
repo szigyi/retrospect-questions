@@ -3,6 +3,17 @@ body {
     background-color: #f4f4f4;
 }
 
+nav {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#language-section {
+    width: 2em;
+    color: #9a9a9a;
+}
+
 #deck {
     display: flex;
     justify-content: center;

@@ -3,8 +3,12 @@ let happyMode = true;
 let sadMode = true;
 let partnerMode = true;
 let childhoodMode = true;
+const language = window.navigator.userLanguage || window.navigator.language;
+const isLanguageEnglish = language.toLowerCase().includes('en-')
 
 function startApp() {
+    document.getElementById('language-preference').textContent = language.toUpperCase()
+
     document.getElementById("happy").addEventListener("change", modeToggle)
     document.getElementById("sad").addEventListener("change", modeToggle)
     document.getElementById("partner").addEventListener("change", modeToggle)
@@ -55,9 +59,10 @@ class DeckApp {
     }
 
     #createCard(id, question) {
+        const q = (isLanguageEnglish) ? question.questionInEn : question.questionInHu
         return `
         <div id="${id}" class="card">
-            <div class="card-text">${question.question}</div>
+            <div class="card-text">${q}</div>
         </div>
         `
     }
@@ -73,8 +78,9 @@ class DeckApp {
 }
 
 class Q {
-    constructor(question, tags) {
-        this.question = question
+    constructor(questionInEn, questionInHu, tags) {
+        this.questionInEn = questionInEn
+        this.questionInHu = questionInHu
         this.tags = tags
     }
 }
@@ -95,53 +101,51 @@ function questions(happyMode, sadMode, partnerMode, childhoodMode) {
         return a;
     }
     const qs = [
-        new Q('What made you happy today?', [Tag.Happy]),
-        new Q('What did you do today that made you proud?', [Tag.Happy]),
-        new Q('How did you look after yourself today?', [Tag.Happy]),
-        new Q('What did you do well today?', [Tag.Happy]),
-        new Q('What made you smile today?', [Tag.Happy]),
-        new Q('Who made you feel nice today?', [Tag.Happy]),
-        new Q('Whom did you enjoy your time with today?', [Tag.Happy]),
-        new Q('What are you grateful for today?', [Tag.Happy]),
-        new Q('How was your body feeling today?', [Tag.Happy]),
-        new Q('How did you look after your body today?', [Tag.Happy]),
-        new Q('Did you daydream about something today? What was it?', [Tag.Happy]),
-        new Q('What did you enjoy about your work today?', [Tag.Happy]),
-        new Q('Did you learn something new today?', [Tag.Happy]),
-        new Q('Did you notice anything new in your local area today?', [Tag.Happy]),
-        new Q('What brought you peace today?', [Tag.Happy]),
-        new Q('How did you motivate yourself today?', [Tag.Happy]),
-        new Q('Was there anything you did better today, than a while ago?', [Tag.Happy]),
-        new Q('What did you do to care about somebody else today?', [Tag.Happy]),
-        new Q('Who helped you today?', [Tag.Happy]),
-        new Q('Whom did you help today?', [Tag.Happy]),
-        new Q('Did you receive a compliment today?', [Tag.Happy]),
-        new Q('Did you give any compliments today?', [Tag.Happy]),
-        new Q('What did your partner do today, that made you feel loved?', [Tag.Happy, Tag.Partner]),
-        new Q('What did you do today, to make your partner feel loved?', [Tag.Happy, Tag.Partner]),
-        new Q('What made you sad today?', [Tag.Sad]),
-        new Q('What made you angry today?', [Tag.Sad]),
-        new Q('How were you feeling today?', [Tag.Sad]),
-        new Q('Where did your thoughts wonder today?', [Tag.Sad]),
-        new Q('Were you afraid of anything today?', [Tag.Sad]),
-        new Q('Would you change anything you did today?', [Tag.Sad]),
-        new Q('Was there anything you wished for today?', [Tag.Sad]),
-        new Q('Did anything cause you disappointment today?', [Tag.Sad]),
-        new Q('Was there anything that really bothered you today?', [Tag.Sad]),
-        new Q('If there would be one thing you could change in your house, what would that be?', [Tag.Sad]),
-        new Q('What occupied most of your free time today?', [Tag.Sad]),
-        new Q('Did anything happen today, that was important to you?', [Tag.Sad]),
-        new Q('How was your day?', [Tag.Sad]),
-        new Q('Is there anything you wanted to do today, and you decided not to?', [Tag.Sad]),
-        new Q('Did anybody made you feel uneasy today?', [Tag.Sad]),
-        new Q('Is there anything you want to be better at?', [Tag.Sad])
+        new Q('What made you happy today?', 'Mi tett boldogga ma?', [Tag.Happy]),
+        new Q('What did you do today that made you proud?', 'Mi tett buszkeve ma?', [Tag.Happy]),
+        new Q('How did you look after yourself today?', 'Hogyan gondoskodtal magadrol ma?', [Tag.Happy]),
+        new Q('What did you do well today?', 'Mit csinaltal jol ma?', [Tag.Happy]),
+        new Q('What made you smile today?', 'Mi mosolyogtatott meg ma?', [Tag.Happy]),
+        new Q('Who made you feel nice today?', 'Ki miatt erezted jol magad ma?', [Tag.Happy]),
+        new Q('Whom did you enjoy your time with today?', '', [Tag.Happy]),
+        new Q('What are you grateful for today?', '', [Tag.Happy]),
+        new Q('How was your body feeling today?', '', [Tag.Happy]),
+        new Q('How did you look after your body today?', '', [Tag.Happy]),
+        new Q('Did you daydream about something today? What was it?', '', [Tag.Happy]),
+        new Q('What did you enjoy about your work today?', '', [Tag.Happy]),
+        new Q('Did you learn something new today?', '', [Tag.Happy]),
+        new Q('Did you notice anything new in your local area today?', '', [Tag.Happy]),
+        new Q('What brought you peace today?', '', [Tag.Happy]),
+        new Q('How did you motivate yourself today?', '', [Tag.Happy]),
+        new Q('Was there anything you did better today, than a while ago?', '', [Tag.Happy]),
+        new Q('What did you do to care about somebody else today?', '', [Tag.Happy]),
+        new Q('Who helped you today?', '', [Tag.Happy]),
+        new Q('Whom did you help today?', '', [Tag.Happy]),
+        new Q('Did you receive a compliment today?', '', [Tag.Happy]),
+        new Q('Did you give any compliments today?', '', [Tag.Happy]),
+        new Q('What did your partner do today, that made you feel loved?', '', [Tag.Happy, Tag.Partner]),
+        new Q('What did you do today, to make your partner feel loved?', '', [Tag.Happy, Tag.Partner]),
+        new Q('What made you sad today?', '', [Tag.Sad]),
+        new Q('What made you angry today?', '', [Tag.Sad]),
+        new Q('How were you feeling today?', '', [Tag.Sad]),
+        new Q('Where did your thoughts wonder today?', '', [Tag.Sad]),
+        new Q('Were you afraid of anything today?', '', [Tag.Sad]),
+        new Q('Would you change anything you did today?', '', [Tag.Sad]),
+        new Q('Was there anything you wished for today?', '', [Tag.Sad]),
+        new Q('Did anything cause you disappointment today?', '', [Tag.Sad]),
+        new Q('Was there anything that really bothered you today?', '', [Tag.Sad]),
+        new Q('If there would be one thing you could change in your house, what would that be?', '', [Tag.Sad]),
+        new Q('What occupied most of your free time today?', '', [Tag.Sad]),
+        new Q('Did anything happen today, that was important to you?', '', [Tag.Sad]),
+        new Q('How was your day?', '', [Tag.Sad]),
+        new Q('Is there anything you wanted to do today, and you decided not to?', '', [Tag.Sad]),
+        new Q('Did anybody made you feel uneasy today?', '', [Tag.Sad]),
+        new Q('Is there anything you want to be better at?', '', [Tag.Sad])
     ]
-    const h = qs.filter(function(el) {
+    return qs.filter(function(el) {
         return (happyMode && el.tags.includes(Tag.Happy)) ||
           (sadMode && el.tags.includes(Tag.Sad)) ||
           (partnerMode && el.tags.includes(Tag.Partner)) ||
           (childhoodMode && el.tags.includes(Tag.Childhood))
     })
-    console.log(h.length)
-    return h
 }

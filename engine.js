@@ -141,17 +141,17 @@ function questions(happyMode, sadMode, partnerMode, childhoodMode) {
         new Q('How was your day?', 'Milyen volt a napod?', [Tag.Sad]),
         new Q('Is there anything you wanted to do today, and you decided not to?', 'Volt valami amit meg kellett volna csinalnod ma de nem tetted?', [Tag.Sad]),
         new Q('Did anybody made you feel uneasy today?', 'Valaki kenyelmetlen helyzetbe hozott ma?', [Tag.Sad]),
-        new Q('Is there anything you want to be better at?', 'Van valami amiben jobb szeretnel lenni?', [Tag.Sad])
-        new Q('What is the most saddest moment of your childhood?', 'Mi a legszomorubb gyerekkori emleked?', [Tag.Sad])
+        new Q('Is there anything you want to be better at?', 'Van valami amiben jobb szeretnel lenni?', [Tag.Sad]),
+        new Q('What is the most saddest moment of your childhood?', 'Mi a legszomorubb gyerekkori emleked?', [Tag.Sad]),
 
-        new Q('In what ways did your mother/father let you down?', 'Milyen modon hagyott cserben anyukad/apukad?', [Tag.Sad, Tag.Childhood])
+        new Q('In what ways did your mother/father let you down?', 'Milyen modon hagyott cserben anyukad/apukad?', [Tag.Sad, Tag.Childhood]),
 
-        new Q('What was your mother/father like when you were growing up?', 'Milyen volt az anyukad/apukad amikor gyerek voltal?', [Tag.Childhood])
-        new Q('What is one of the greatest lessons your mother/father has taught you?', 'Mi a legfontosabb lecke amit anyukad/apukad tanitott neked?', [Tag.Childhood])
-        new Q('What do you admire most about your mother/father?', 'Mit szeretsz a legjobban anyukadban/apukadban?', [Tag.Childhood])
-        new Q('What did your family like to do on vacation?', 'Mit szeretett a csaladod csinalni a nyaralaskor?', [Tag.Childhood])
-        new Q('What was the most memorable Christmas gift you received as a child?', 'Mi volt a legemlekezetesebb Karacsonyi ajandek amit kaptal?', [Tag.Childhood])
-        new Q('What role did religion play in your life growing up?', 'Milyen modon jarult a vallas a gyermekkorodhoz?', [Tag.Childhood])
+        new Q('What was your mother/father like when you were growing up?', 'Milyen volt az anyukad/apukad amikor gyerek voltal?', [Tag.Childhood]),
+        new Q('What is one of the greatest lessons your mother/father has taught you?', 'Mi a legfontosabb lecke amit anyukad/apukad tanitott neked?', [Tag.Childhood]),
+        new Q('What do you admire most about your mother/father?', 'Mit szeretsz a legjobban anyukadban/apukadban?', [Tag.Childhood]),
+        new Q('What did your family like to do on vacation?', 'Mit szeretett a csaladod csinalni a nyaralaskor?', [Tag.Childhood]),
+        new Q('What was the most memorable Christmas gift you received as a child?', 'Mi volt a legemlekezetesebb Karacsonyi ajandek amit kaptal?', [Tag.Childhood]),
+        new Q('What role did religion play in your life growing up?', 'Milyen modon jarult a vallas a gyermekkorodhoz?', [Tag.Childhood]),
         new Q('What is the happiest moment of your childhood?', 'Mi a legboldogabb gyerekkori emleked?', [Tag.Childhood])
     ]
     const q = qs.filter(function(el) {

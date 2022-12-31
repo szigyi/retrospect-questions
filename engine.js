@@ -14,8 +14,11 @@ function startApp() {
     document.getElementById("partner").addEventListener("change", modeToggle)
     document.getElementById("childhood").addEventListener("change", modeToggle)
 
+    const qs = questions(happyMode, sadMode, partnerMode, childhoodMode)
+    document.getElementById('card-number').textContent = qs.length
+
     const deck = document.getElementById("deck")
-    app = new DeckApp(deck, questions(happyMode, sadMode, partnerMode, childhoodMode))
+    app = new DeckApp(deck, qs)
     deck.addEventListener("click", nextCardPlease)
 }
 
@@ -93,12 +96,8 @@ const Tag = {
 }
 
 function questions(happyMode, sadMode, partnerMode, childhoodMode) {
-    function shuffle(a) {
-        for (let i = a.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [a[i], a[j]] = [a[j], a[i]];
-        }
-        return a;
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
     }
     const qs = [
         new Q('What made you happy today?', 'Mi tett boldogga ma?', [Tag.Happy]),
@@ -142,10 +141,11 @@ function questions(happyMode, sadMode, partnerMode, childhoodMode) {
         new Q('Did anybody made you feel uneasy today?', 'Valaki kenyelmetlen helyzetbe hozott ma?', [Tag.Sad]),
         new Q('Is there anything you want to be better at?', 'Van valami amiben jobb szeretnel lenni?', [Tag.Sad])
     ]
-    return qs.filter(function(el) {
+    const q = qs.filter(function(el) {
         return (happyMode && el.tags.includes(Tag.Happy)) ||
           (sadMode && el.tags.includes(Tag.Sad)) ||
           (partnerMode && el.tags.includes(Tag.Partner)) ||
           (childhoodMode && el.tags.includes(Tag.Childhood))
     })
+    return shuffle(q)
 }

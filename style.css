@@ -5,12 +5,12 @@ body {
 
 nav {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
 }
 
-#language-section {
-    width: 2em;
+#dev-information-section {
+    width: 3em;
     color: #9a9a9a;
 }
 
@@ -52,8 +52,4 @@ nav {
 #deck div.card-text {
     text-align: center;
     color: #0a0f49;
-}
-
-#deck div.card-text:before {
-
 }

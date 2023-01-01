@@ -21,7 +21,17 @@ nav {
     margin-top: 22em;
 }
 
-#deck div.card {
+.card.moving-from-top {
+    transform: translate(-400px, -50px) rotate(-20deg);
+}
+
+.card.moving-to-bottom {
+    transform: translate(0px, 0px) rotate(0deg);
+}
+
+.card {
+    transform: translate(0px, 0px) rotate(0);
+    transition: all 0.15s ease-in-out;
     position: absolute;
     margin: 1em 1em;
     padding: 1em 1em;
@@ -49,7 +59,7 @@ nav {
     user-select: none;
 }
 
-#deck div.card-text {
+.card-text {
     text-align: center;
     color: #0a0f49;
 }

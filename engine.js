@@ -22,11 +22,16 @@ function startApp() {
     deck.addEventListener("click", nextCardPlease)
 }
 
-function nextCardPlease() {
+async function nextCardPlease() {
     const deck = document.getElementById("deck")
     const cards = [...deck.children]
     const head = cards.shift()
     const cardsArray = [...cards, head]
+
+    head.classList.add('moving-from-top') // start css animation
+    await new Promise(r => setTimeout(r, 200)) // waiting until moving from top animation finishes
+    head.classList.add('moving-to-bottom') // start css animation
+    await new Promise(r => setTimeout(r, 200)) // waiting until animation finishes
     deck.replaceChildren(...cardsArray)
 }
 
@@ -61,10 +66,10 @@ class DeckApp {
         }
     }
 
-    #createCard(id, question) {
+    #createCard(index, id, question) {
         const q = (isLanguageEnglish) ? question.questionInEn : question.questionInHu
         return `
-        <div id="${id}" class="card">
+        <div id="${id}" class="card" z-index="${index}">
             <div class="card-text">${q}</div>
         </div>
         `
@@ -74,7 +79,7 @@ class DeckApp {
         this.#removeAllCards()
         for (const [i, q] of this.questions.entries()) {
             const id = `card_${i}`
-            const card = this.#createCard(id, q)
+            const card = this.#createCard(i, id, q)
             this.deck.insertAdjacentHTML('beforeend', card)
         }
     }

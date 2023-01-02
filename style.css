@@ -18,7 +18,7 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 22em;
+    margin-top: 18em;
 }
 
 .card.moving-from-top {
@@ -62,4 +62,13 @@ nav {
 .card-text {
     text-align: center;
     color: #0a0f49;
+}
+
+input.filter {
+  transform: scale(2);
+  margin: 0.8em;
+}
+
+label {
+    margin-right: 1.3em;
 }

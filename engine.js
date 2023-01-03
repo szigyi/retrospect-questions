@@ -1,10 +1,14 @@
-let app;
+
 let happyMode = true;
 let sadMode = true;
 let partnerMode = true;
 let childhoodMode = true;
 const language = window.navigator.userLanguage || window.navigator.language;
 const isLanguageEnglish = language.toLowerCase().includes('en-')
+
+let deck;
+let qs;
+let currentCardIndex;
 
 function startApp() {
     document.getElementById('language-preference').textContent = language.toUpperCase()
@@ -14,25 +18,37 @@ function startApp() {
     document.getElementById("partner").addEventListener("change", modeToggle)
     document.getElementById("childhood").addEventListener("change", modeToggle)
 
-    const qs = questions(happyMode, sadMode, partnerMode, childhoodMode)
+    qs = getQuestions(happyMode, sadMode, partnerMode, childhoodMode)
+    currentCardIndex = qs.length - 1
     document.getElementById('card-number').textContent = qs.length
 
-    const deck = document.getElementById("deck")
-    app = new DeckApp(deck, qs)
-    deck.addEventListener("click", nextCardPlease)
+    deck = document.getElementById('deck')
+    deck.addEventListener('click', nextCardPlease)
+
+    const card = questionToCard(qs, currentCardIndex)
+    deck.insertAdjacentHTML('beforeend', card)
 }
 
 async function nextCardPlease() {
-    const deck = document.getElementById("deck")
-    const cards = [...deck.children]
-    const head = cards.shift()
-    const cardsArray = [...cards, head]
+    if (currentCardIndex <= 0) {
+        currentCardIndex = qs.length - 1
+    } else {
+        currentCardIndex = currentCardIndex - 1
+    }
 
+    const nextCard = questionToCard(qs, currentCardIndex)
+    deck.insertAdjacentHTML('beforeend', nextCard)
+
+    const head = deck.children[0]
+    console.log(head)
     head.classList.add('moving-from-top') // start css animation
     await new Promise(r => setTimeout(r, 200)) // waiting until moving from top animation finishes
     head.classList.add('moving-to-bottom') // start css animation
     await new Promise(r => setTimeout(r, 200)) // waiting until animation finishes
-    deck.replaceChildren(...cardsArray)
+    head.classList.remove('moving-from-top')
+    head.classList.remove('moving-to-bottom')
+
+    deck.removeChild(head)
 }
 
 function modeToggle(event) {
@@ -49,121 +65,36 @@ function modeToggle(event) {
         case "childhood":
             childhoodMode = event.target.checked
     }
-    app.deck.removeEventListener("click", nextCardPlease)
+    deck.removeEventListener("click", nextCardPlease)
+    while (deck.firstChild) {
+        deck.removeChild(deck.firstChild)
+    }
     startApp()
 }
 
-class DeckApp {
-    constructor(deck, questions) {
-        this.deck = deck
-        this.questions = questions
-        this.#addCards()
-    }
+function questionToCard(questions, currentIndex) {
+    const q = questions[currentIndex]
+    return createCard(currentIndex, q)
+}
 
-    #removeAllCards() {
-        while (this.deck.firstChild) {
-            this.deck.removeChild(this.deck.firstChild)
-        }
-    }
-
-    #createCard(index, id, question) {
-        const q = (isLanguageEnglish) ? question.questionInEn : question.questionInHu
-        return `
-        <div id="${id}" class="card" z-index="${index}">
+function createCard(index, question) {
+    const q = (isLanguageEnglish) ? question.questionInEn : question.questionInHu
+    const id = `card_${index}`
+    return `
+        <div id="${id}" class="card">
             <div class="card-text">${q}</div>
         </div>
-        `
-    }
-
-    #addCards() {
-        this.#removeAllCards()
-        for (const [i, q] of this.questions.entries()) {
-            const id = `card_${i}`
-            const card = this.#createCard(i, id, q)
-            this.deck.insertAdjacentHTML('beforeend', card)
-        }
-    }
+    `
 }
 
-class Q {
-    constructor(questionInEn, questionInHu, tags) {
-        this.questionInEn = questionInEn
-        this.questionInHu = questionInHu
-        this.tags = tags
+function createCards(q1, q2) {
+    let cards = []
+    if (q1) {
+        cards.push(createCard(0, q1))
     }
-}
-
-const Tag = {
-    Happy: Symbol("happy"),
-    Sad: Symbol("sad"),
-    Partner: Symbol("partner"),
-    Childhood: Symbol("childhood")
-}
-
-function questions(happyMode, sadMode, partnerMode, childhoodMode) {
-    function shuffle(array) {
-      return array.sort(() => Math.random() - 0.5);
+    if (q2) {
+        cards.push(createCard(1, q2))
     }
-    const qs = [
-        new Q('What made you happy today?', 'Mi tett boldogga ma?', [Tag.Happy]),
-        new Q('What did you do today that made you proud?', 'Mi tett buszkeve ma?', [Tag.Happy]),
-        new Q('How did you look after yourself today?', 'Hogyan gondoskodtal magadrol ma?', [Tag.Happy]),
-        new Q('What did you do well today?', 'Mit csinaltal jol ma?', [Tag.Happy]),
-        new Q('What made you smile today?', 'Mi mosolyogtatott meg ma?', [Tag.Happy]),
-        new Q('Who made you feel nice today?', 'Ki miatt erezted jol magad ma?', [Tag.Happy]),
-        new Q('Whom did you enjoy your time with today?', 'Kivel erezted jol magad ma?', [Tag.Happy]),
-        new Q('What are you grateful for today?', 'Miert vagy halas ma?', [Tag.Happy]),
-        new Q('How was your body feeling today?', 'Hogy erezte a tested magat ma?', [Tag.Happy]),
-        new Q('How did you look after your body today?', 'Hogyan gondoskodtal a testedrol ma?', [Tag.Happy]),
-        new Q('Did you daydream about something today? What was it?', 'Almodoztal ma? Mirol?', [Tag.Happy]),
-        new Q('What did you enjoy about your work today?', 'Mit elveztel a munkadban ma?', [Tag.Happy]),
-        new Q('Did you learn something new today?', 'Tanultal valami ujat ma?', [Tag.Happy]),
-        new Q('Did you notice anything new in your local area today?', 'Eszrevettel valami ujat a kornyekeden?', [Tag.Happy]),
-        new Q('What brought you peace today?', 'Mi nyugtatott meg ma?', [Tag.Happy]),
-        new Q('How did you motivate yourself today?', 'Hogyan motivaltad magad ma?', [Tag.Happy]),
-        new Q('Was there anything you did better today, than a while ago?', 'Volt valami amit ma jobban csinalta mint a multban?', [Tag.Happy]),
-        new Q('What did you do to care about somebody else today?', 'Gondoskodtal valaki masrol ma? Hogyan?', [Tag.Happy]),
-        new Q('Who helped you today?', 'Ki segitett neked ma?', [Tag.Happy]),
-        new Q('Whom did you help today?', 'Kinek segitettel ma?', [Tag.Happy]),
-        new Q('Did you receive a compliment today?', 'Valaki megdicsert ma?', [Tag.Happy]),
-        new Q('Did you give any compliments today?', 'Megdicsertel valakit ma?', [Tag.Happy]),
-
-        new Q('What did your partner do today, that made you feel loved?', 'Mit csinalt a parod amitol szeretve erezted magad?', [Tag.Happy, Tag.Partner]),
-        new Q('What did you do today, to make your partner feel loved?', 'Mivel mutattad ki ma a szeretetedet a parodnak?', [Tag.Happy, Tag.Partner]),
-
-        new Q('What made you sad today?', 'Mitol voltal szomoru ma?', [Tag.Sad]),
-        new Q('What made you angry today?', 'Mi mergesitett fel ma?', [Tag.Sad]),
-        new Q('How were you feeling today?', 'Hogyan erezted magad ma?', [Tag.Sad]),
-        new Q('Where did your thoughts wonder today?', 'Hol jartak a gondolataid ma?', [Tag.Sad]),
-        new Q('Were you afraid of anything today?', 'Feltel ma valamitol?', [Tag.Sad]),
-        new Q('Would you change anything you did today?', 'Valtoztatnal barmin amit ma tettel?', [Tag.Sad]),
-        new Q('Was there anything you wished for today?', 'Volt valami amit kivantal ma?', [Tag.Sad]),
-        new Q('Did anything cause you disappointment today?', 'Volt barmi amiben csalodtal ma?', [Tag.Sad]),
-        new Q('Was there anything that really bothered you today?', 'Volt valami ami bantott ma?', [Tag.Sad]),
-        new Q('If there would be one thing you could change in your house, what would that be?', 'Ha lehetne akkor mit valtoztatnal a hazadban?', [Tag.Sad]),
-        new Q('What occupied most of your free time today?', 'Mivel toltotted a szabadidodet ma?', [Tag.Sad]),
-        new Q('Did anything happen today, that was important to you?', 'Tortent valami fontos ma?', [Tag.Sad]),
-        new Q('How was your day?', 'Milyen volt a napod?', [Tag.Sad]),
-        new Q('Is there anything you wanted to do today, and you decided not to?', 'Volt valami amit meg kellett volna csinalnod ma de nem tetted?', [Tag.Sad]),
-        new Q('Did anybody made you feel uneasy today?', 'Valaki kenyelmetlen helyzetbe hozott ma?', [Tag.Sad]),
-        new Q('Is there anything you want to be better at?', 'Van valami amiben jobb szeretnel lenni?', [Tag.Sad]),
-        new Q('What is the most saddest moment of your childhood?', 'Mi a legszomorubb gyerekkori emleked?', [Tag.Sad]),
-
-        new Q('In what ways did your mother/father let you down?', 'Milyen modon hagyott cserben anyukad/apukad?', [Tag.Sad, Tag.Childhood]),
-
-        new Q('What was your mother/father like when you were growing up?', 'Milyen volt az anyukad/apukad amikor gyerek voltal?', [Tag.Childhood]),
-        new Q('What is one of the greatest lessons your mother/father has taught you?', 'Mi a legfontosabb lecke amit anyukad/apukad tanitott neked?', [Tag.Childhood]),
-        new Q('What do you admire most about your mother/father?', 'Mit szeretsz a legjobban anyukadban/apukadban?', [Tag.Childhood]),
-        new Q('What did your family like to do on vacation?', 'Mit szeretett a csaladod csinalni a nyaralaskor?', [Tag.Childhood]),
-        new Q('What was the most memorable Christmas gift you received as a child?', 'Mi volt a legemlekezetesebb Karacsonyi ajandek amit kaptal?', [Tag.Childhood]),
-        new Q('What role did religion play in your life growing up?', 'Milyen modon jarult a vallas a gyermekkorodhoz?', [Tag.Childhood]),
-        new Q('What is the happiest moment of your childhood?', 'Mi a legboldogabb gyerekkori emleked?', [Tag.Childhood])
-    ]
-    const q = qs.filter(function(el) {
-        return (happyMode && el.tags.includes(Tag.Happy)) ||
-          (sadMode && el.tags.includes(Tag.Sad)) ||
-          (partnerMode && el.tags.includes(Tag.Partner)) ||
-          (childhoodMode && el.tags.includes(Tag.Childhood))
-    })
-    return shuffle(q)
+    return cards
 }
+

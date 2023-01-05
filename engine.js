@@ -42,9 +42,9 @@ async function nextCardPlease() {
     const head = deck.children[0]
     console.log(head)
     head.classList.add('moving-from-top') // start css animation
-    await new Promise(r => setTimeout(r, 200)) // waiting until moving from top animation finishes
+    await new Promise(r => setTimeout(r, 500)) // waiting until moving from top animation finishes
     head.classList.add('moving-to-bottom') // start css animation
-    await new Promise(r => setTimeout(r, 200)) // waiting until animation finishes
+    await new Promise(r => setTimeout(r, 500)) // waiting until animation finishes
     head.classList.remove('moving-from-top')
     head.classList.remove('moving-to-bottom')
 

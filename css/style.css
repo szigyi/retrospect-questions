@@ -41,7 +41,7 @@ nav {
     justify-content: center;
     align-items: center;
     background-color: white;
-    background-image: url("touch_icon.png");
+    background-image: url("../image/touch_icon.png");
     background-repeat: no-repeat;
     background-origin: content-box;
     background-position: right -2em top -2em;

@@ -24,6 +24,8 @@ For couples or for loners before bedtime to evaluate the day. Run a retrospectiv
 ## Dev
 ```shell
 sass --watch css/style.scss css/style.css
+```
 
+```shell
 sass css/style.scss css/style.css
 ```

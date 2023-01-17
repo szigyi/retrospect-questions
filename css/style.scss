@@ -1,0 +1,74 @@
+
+body {
+    background-color: #f4f4f4;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#dev-information-section {
+    width: 3em;
+    color: #9a9a9a;
+}
+
+#deck {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 18em;
+}
+
+.card.moving-from-top {
+    transform: translate(-400px, -50px) rotate(-20deg);
+}
+
+.card.moving-to-bottom {
+    transform: translate(0px, 0px) rotate(0deg);
+}
+
+.card {
+    transform: translate(0px, 0px) rotate(0);
+    transition: all 0.4s ease-in-out;
+    position: absolute;
+    margin: 1em 1em;
+    padding: 1em 1em;
+    height: 15em;
+    width: 10em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    background-image: url("../image/touch_icon.png");
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    background-position: right -2em top -2em;
+
+    border-style: solid;
+    border-radius: 1em;
+    border-width: 0.05em;
+    border-color: black;
+
+    cursor: pointer;
+    font-size: 1.5em;
+
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.card-text {
+    text-align: center;
+    color: #0a0f49;
+}
+
+input.filter {
+  transform: scale(2);
+  margin: 0.8em;
+}
+
+label {
+    margin-right: 1.3em;
+}

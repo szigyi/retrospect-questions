@@ -20,3 +20,10 @@ For couples or for loners before bedtime to evaluate the day. Run a retrospectiv
 - [X] click on the card to put away and get another card
 - [X] categorise the question as happy and or sad
 - [X] mode selector [Happy | Happy & Sad]
+
+## Dev
+```shell
+sass --watch css/style.scss css/style.css
+
+sass css/style.scss css/style.css
+```

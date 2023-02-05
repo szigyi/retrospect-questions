@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,23 +8,31 @@
     <script src="js/questions.js"></script>
     <script src="js/engine.js"></script>
 </head>
-<body data-theme="light" onload="startApp()">
+<body onload="startApp()">
     <nav>
         <section id="dev-information-section">
-            <section id="language-section">
+            <div id="language-section">
                 <span id="language-preference"></span>
-            </section>
-            <section id="card-number"></section>
+            </div>
+            <div id="card-number"></div>
         </section>
         <section id="mode">
-            <input type="checkbox" role="switch" id="happy" name="happy" class="filter" checked>
-            <label for="happy">Happy Cards</label>
-            <input type="checkbox" role="switch" id="sad" name="sad" class="filter" checked>
-            <label for="sad">Sad Cards</label><br/>
-            <input type="checkbox" role="switch" id="partner" name="partner" class="filter" checked>
-            <label for="partner">Partner Cards</label>
-            <input type="checkbox" role="switch" id="childhood" name="childhood" class="filter" checked>
-            <label for="childhood">Childhood Cards</label><br>
+            <div>
+                <input type="checkbox" role="switch" id="happy" name="happy" class="filter-input" checked>
+                <label for="happy">Happy Cards</label>
+            </div>
+            <div>
+                <input type="checkbox" role="switch" id="sad" name="sad" class="filter-input" checked>
+                <label for="sad">Sad Cards</label>
+            </div>
+            <div>
+                <input type="checkbox" role="switch" id="partner" name="partner" class="filter-input" checked>
+                <label for="partner">Partner Cards</label>
+            </div>
+            <div>
+                <input type="checkbox" role="switch" id="childhood" name="childhood" class="filter-input" checked>
+                <label for="childhood">Childhood Cards</label>
+            </div>
         </section>
     </nav>
     <section id="deck">

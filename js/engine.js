@@ -81,8 +81,8 @@ function createCard(index, question) {
     const q = (isLanguageEnglish) ? question.questionInEn : question.questionInHu
     const id = `card_${index}`
     return `
-        <div id="${id}" class="card">
-            <div class="card-text">${q}</div>
+        <div id="${id}" class="card" data-theme="light">
+            <p class="card-text">${q}</p>
         </div>
     `
 }

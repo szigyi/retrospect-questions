@@ -17,7 +17,7 @@ nav {
 }
 
 #dev-information-section {
-    width: 3em;
+    width: 4em;
     color: #9a9a9a;
 }
 
@@ -25,7 +25,7 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 18em;
+    margin-top: 12em;
 }
 
 .card.moving-from-top {
@@ -68,14 +68,43 @@ nav {
 
 .card-text {
     text-align: center;
-    color: #0a0f49;
+    font-size: 1em;
 }
 
-input.filter {
-  transform: scale(2);
-  margin: 0.8em;
+.filter-input {
+    @media (min-width: 100px) {
+        transform: scale(1.6);
+    }
+    @if map-get($breakpoints, "sm") {
+        @media (min-width: map-get($breakpoints, "sm")) {
+            transform: scale(1.6);
+        }
+    }
+
+    @if map-get($breakpoints, "md") {
+        @media (min-width: map-get($breakpoints, "md")) {
+            transform: scale(1.6);
+        }
+    }
+
+    @if map-get($breakpoints, "lg") {
+        @media (min-width: map-get($breakpoints, "lg")) {
+            transform: scale(1.4);
+        }
+    }
+
+    @if map-get($breakpoints, "xl") {
+        @media (min-width: map-get($breakpoints, "xl")) {
+            transform: scale(1.2);
+        }
+    }
+}
+
+#mode > div {
+    margin-top: 0.4em;
+    margin-bottom: 0.8em;
 }
 
 label {
-    margin-right: 1.3em;
+    margin-left: 1em;
 }
